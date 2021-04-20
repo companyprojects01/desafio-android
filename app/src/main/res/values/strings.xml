@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">PicPay</string>
+    <string name="app_name" translatable="false">PicPay</string>
     <string name="title">Contatos</string>
-    <string name="error">Ocorreu um erro. Tente novamente.</string>
-
+    <string name="client_error">Não encontramos o que você quer. Tente novamente</string>
+    <string name="server_error">Nossos servidores estão tentando te acompanhar. Tente novamente</string>
+    <string name="internet_connection_error">Você esta sem acesso à internet ):</string>
 </resources>

@@ -11,29 +11,17 @@ import org.hamcrest.Matcher
 
 object RecyclerViewMatchers {
 
-    fun atPosition(
-        position: Int,
-        itemMatcher: Matcher<View>
-    ) = object : BoundedMatcher<View, RecyclerView>(RecyclerView::class.java) {
-        override fun describeTo(description: Description?) {
-            description?.appendText("has item at position $position: ")
-            itemMatcher.describeTo(description)
-        }
+    fun hasItemAtPosition(matcher: Matcher<View?>, position: Int): Matcher<View?> {
+        return object : BoundedMatcher<View?, RecyclerView>(RecyclerView::class.java) {
+            override fun describeTo(description: Description) {
+                description.appendText("has item at position $position: ")
+                matcher.describeTo(description)
+            }
 
-        override fun matchesSafely(item: RecyclerView?): Boolean {
-            val viewHolder = item?.findViewHolderForAdapterPosition(position) ?: return false
-            return itemMatcher.matches(viewHolder.itemView)
+            override fun matchesSafely(recyclerView: RecyclerView): Boolean {
+                val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
+                return matcher.matches(viewHolder?.itemView)
+            }
         }
-    }
-
-    fun checkRecyclerViewItem(resId: Int, position: Int, withMatcher: Matcher<View>) {
-        Espresso.onView(ViewMatchers.withId(resId)).check(
-            ViewAssertions.matches(
-                atPosition(
-                    position,
-                    ViewMatchers.hasDescendant(withMatcher)
-                )
-            )
-        )
     }
 }

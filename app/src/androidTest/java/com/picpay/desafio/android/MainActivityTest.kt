@@ -6,13 +6,15 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.platform.app.InstrumentationRegistry
+import com.picpay.desafio.android.RecyclerViewMatchers.hasItemAtPosition
+import com.picpay.desafio.android.userList.view.MainActivity
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
 import org.junit.Test
-
 
 class MainActivityTest {
 
@@ -24,9 +26,7 @@ class MainActivityTest {
     fun shouldDisplayTitle() {
         launchActivity<MainActivity>().apply {
             val expectedTitle = context.getString(R.string.title)
-
             moveToState(Lifecycle.State.RESUMED)
-
             onView(withText(expectedTitle)).check(matches(isDisplayed()))
         }
     }
@@ -45,9 +45,12 @@ class MainActivityTest {
         server.start(serverPort)
 
         launchActivity<MainActivity>().apply {
-            // TODO("validate if list displays items returned by server")
+            onView(hasItemAtPosition(hasDescendant(withText("Eduardo Santos")), 0)).check(
+                matches(
+                    isDisplayed()
+                )
+            )
         }
-
         server.close()
     }
 

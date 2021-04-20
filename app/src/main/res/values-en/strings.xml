@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title">Contacts</string>
+    <string name="client_error">We haven\'t found what you are looking for. Please try again</string>
+    <string name="server_error">Our servers are trying to keep up. Please try again</string>
+    <string name="internet_connection_error">You are offline ):</string>
+</resources>
